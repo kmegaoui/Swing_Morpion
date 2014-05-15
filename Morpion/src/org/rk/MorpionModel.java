@@ -15,7 +15,6 @@ public class MorpionModel extends Observable
 	public MorpionModel()
 	{
 		initStandard();
-		initGrille();
 	}
 
 	public void initStandard()
@@ -44,7 +43,7 @@ public class MorpionModel extends Observable
 	{
 		if (coordValide(ligne, colonne))
 		{
-			return grille[ligne - 1][colonne - 1] != null;
+			return grille[ligne - 1][colonne - 1].getJoueur() != null;
 		}
 		else
 		{

@@ -9,4 +9,9 @@ public class Joueur
 	{
 		this.nom = n;
 	}
+
+	public String toString()
+	{
+		return nom;
+	}
 }
