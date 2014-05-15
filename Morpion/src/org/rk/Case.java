@@ -10,6 +10,11 @@ public class Case
 
 	}
 
+	public Case(Joueur j)
+	{
+		joueur = j;
+	}
+
 	public Joueur getJoueur()
 	{
 		return joueur;

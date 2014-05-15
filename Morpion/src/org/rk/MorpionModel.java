@@ -9,8 +9,9 @@ public class MorpionModel extends Observable
 {
 	private int nbLigne;
 	private int nbColonne;
-	List<Joueur> listeJoueur;
-	Case[][] grille;
+	private List<Joueur> listeJoueur;
+	private Case[][] grille;
+	private int nbCoupPossible;
 
 	public MorpionModel()
 	{
@@ -19,9 +20,11 @@ public class MorpionModel extends Observable
 
 	public void initStandard()
 	{
-		this.nbLigne = 3;
-		this.nbColonne = 3;
-		this.listeJoueur = new ArrayList<Joueur>();
+		nbLigne = 3;
+		nbColonne = 3;
+		nbCoupPossible = nbLigne * nbColonne;
+
+		listeJoueur = new ArrayList<Joueur>();
 		listeJoueur.add(new Joueur("Joueur 1"));
 		listeJoueur.add(new Joueur("Joueur 2"));
 	}
@@ -39,17 +42,23 @@ public class MorpionModel extends Observable
 		}
 	}
 
-	public boolean jouerCoup(int ligne, int colonne)
+	public boolean jouerCoup(int ligne, int colonne, Joueur joueur)
 	{
-		if (coordValide(ligne, colonne))
+		if (joueur.estAutoriseAJouer())
 		{
-			return grille[ligne - 1][colonne - 1].getJoueur() != null;
-		}
-		else
-		{
-			return false;
+			if (coordValide(ligne, colonne))
+			{
+				if (grille[ligne - 1][colonne - 1].getJoueur() != null)
+				{
+					grille[ligne - 1][colonne - 1] = new Case(joueur);
+					decrementeCoupPossible();
+					joueur.setAutoriseAJouer(false);
+					return true;
+				}
+			}
 		}
 
+		return false;
 	}
 
 	public boolean coordValide(int ligne, int colonne)
@@ -57,4 +66,20 @@ public class MorpionModel extends Observable
 		return ligne > 0 && ligne <= nbLigne && colonne > 0
 				&& colonne <= nbColonne;
 	}
+
+	public boolean estCoupGagnant()
+	{
+		return false;
+	}
+
+	public boolean estDernierCoup()
+	{
+		return false;
+	}
+
+	public void decrementeCoupPossible()
+	{
+		nbCoupPossible--;
+	}
+
 }
