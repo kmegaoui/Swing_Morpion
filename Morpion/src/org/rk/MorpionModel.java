@@ -80,10 +80,12 @@ public class MorpionModel extends Observable
 					{
 						initGrille();
 						start();
+						setChanged();
+						notifyObservers(2);
 					}
 
 					setChanged();
-					notifyObservers();
+					notifyObservers(1);
 				}
 			}
 		}
