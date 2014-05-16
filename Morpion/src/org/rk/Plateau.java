@@ -76,6 +76,7 @@ public class Plateau extends JPanel
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponents(g);
+		((Graphics2D) g).clearRect(0, 0, tailleX, tailleY);
 		int i = 1;
 		while (i < nbCaseX)
 		{
