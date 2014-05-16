@@ -61,8 +61,8 @@ public class MorpionModel extends Observable
 				decrementeCoupPossible();
 				joueur.setAutoriseAJouer(false);
 
-				// setChanged();
-				// notifyObservers();
+				setChanged();
+				notifyObservers();
 			}
 		}
 	}
