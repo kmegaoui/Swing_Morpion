@@ -55,14 +55,14 @@ public class MorpionModel extends Observable
 		// {
 		if (coordValide(ligne, colonne))
 		{
-			if (grille[ligne - 1][colonne - 1].getJoueur() != null)
+			if (grille[ligne - 1][colonne - 1].getJoueur() == null)
 			{
-				grille[ligne - 1][colonne - 1] = new Case(joueur);
+				grille[ligne - 1][colonne - 1].setJoueur(joueur);
 				decrementeCoupPossible();
 				joueur.setAutoriseAJouer(false);
 
-				setChanged();
-				notifyObservers();
+				// setChanged();
+				// notifyObservers();
 			}
 		}
 	}

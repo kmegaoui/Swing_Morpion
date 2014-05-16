@@ -145,19 +145,24 @@ public class MorpionView extends Observable implements Observer
 						// plateau.croix(arg0.getX(), arg0.getY());
 						// joueur = true;
 						// }
-						setChanged();
-						notifyObservers();
+						// setChanged();
+						// notifyObservers();
+						dessinerGrille();
 					}
 				});
-
 			}
-
 		});
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1)
 	{
+		dessinerGrille();
+	}
+
+	public void dessinerGrille()
+	{
+
 		Case[][] grille = mm.getGrille();
 		for (int i = 0; i < mm.getNbLigne(); i++)
 		{
@@ -176,6 +181,6 @@ public class MorpionView extends Observable implements Observer
 				}
 			}
 		}
-
 	}
+
 }

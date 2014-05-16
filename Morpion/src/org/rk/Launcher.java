@@ -20,11 +20,11 @@ public class Launcher
 		mm.jouerCoup(2, 1, mm.getJoueur2());
 		mm.jouerCoup(2, 2, mm.getJoueur2());
 		mm.jouerCoup(2, 3, mm.getJoueur2());
+
 		mv = new MorpionView(mm);
 		mc = new MorpionControler(mm, mv);
 		mm.addObserver(mv);
 		mv.addObserver(mc);
-
 	}
 
 }
