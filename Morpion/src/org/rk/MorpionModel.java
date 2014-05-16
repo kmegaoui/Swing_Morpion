@@ -66,6 +66,7 @@ public class MorpionModel extends Observable
 				{
 					grille[ligne - 1][colonne - 1].setJoueur(coup.getJoueur());
 					decrementeCoupPossible();
+					System.out.println("Coups restants" + nbCoupPossible);
 
 					if (joueurEnCours.equals(joueur1))
 					{
@@ -78,6 +79,7 @@ public class MorpionModel extends Observable
 
 					if (estDernierCoup())
 					{
+						System.out.println("dernier coup joué");
 						initGrille();
 						start();
 						setChanged();
