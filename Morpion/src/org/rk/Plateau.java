@@ -77,8 +77,10 @@ public class Plateau extends JPanel
 		Graphics g = getGraphics();
 
 		// Calcul des coordonnées dans la grille
-		CoordCaseX = x / tailleCaseX;
-		CoordCaseY = y / tailleCaseY;
+		// CoordCaseX = x / tailleCaseX;
+		// CoordCaseY = y / tailleCaseY;
+		CoordCaseX = x;
+		CoordCaseY = y;
 		int baseX = 10 + (CoordCaseX * tailleCaseX);
 		int baseY = 10 + (CoordCaseY * tailleCaseY);
 		System.out.println(tailleCaseX + " " + tailleCaseY);
