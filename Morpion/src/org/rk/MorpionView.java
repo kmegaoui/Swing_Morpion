@@ -34,7 +34,7 @@ public class MorpionView extends Observable implements Observer
 	Plateau plateau;
 	Boolean joueur = true;
 
-	public MorpionView(MorpionModel mm)
+	public MorpionView(final MorpionModel mm)
 	{
 		this.mm = mm;
 		SwingUtilities.invokeLater(new Runnable()
@@ -135,20 +135,23 @@ public class MorpionView extends Observable implements Observer
 					@Override
 					public void mouseClicked(MouseEvent arg0)
 					{
-						if (joueur)
-						{
-							plateau.cercle(arg0.getX(), arg0.getY());
-							joueur = false;
-						}
-						else
-						{
-							plateau.croix(arg0.getX(), arg0.getY());
-							joueur = true;
-						}
+						// if (joueur)
+						// {
+						// plateau.cercle(arg0.getX(), arg0.getY());
+						// joueur = false;
+						// }
+						// else
+						// {
+						// plateau.croix(arg0.getX(), arg0.getY());
+						// joueur = true;
+						// }
+						setChanged();
+						notifyObservers();
 					}
 				});
 
 			}
+
 		});
 	}
 
