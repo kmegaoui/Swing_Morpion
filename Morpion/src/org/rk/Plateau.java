@@ -21,6 +21,40 @@ public class Plateau extends JPanel
 	private Integer tailleCaseX, tailleCaseY;
 
 	/**
+	 * @return the tailleCaseX
+	 */
+	public Integer getTailleCaseX()
+	{
+		return tailleCaseX;
+	}
+
+	/**
+	 * @param tailleCaseX
+	 *            the tailleCaseX to set
+	 */
+	public void setTailleCaseX(Integer tailleCaseX)
+	{
+		this.tailleCaseX = tailleCaseX;
+	}
+
+	/**
+	 * @return the tailleCaseY
+	 */
+	public Integer getTailleCaseY()
+	{
+		return tailleCaseY;
+	}
+
+	/**
+	 * @param tailleCaseY
+	 *            the tailleCaseY to set
+	 */
+	public void setTailleCaseY(Integer tailleCaseY)
+	{
+		this.tailleCaseY = tailleCaseY;
+	}
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1771331963597200288L;
