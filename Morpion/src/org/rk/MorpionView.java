@@ -138,12 +138,12 @@ public class MorpionView extends Observable implements Observer
 						Joueur joueur;
 						if (bJoueur)
 						{
-							joueur = new Joueur("Joueur 1");
+							joueur = mm.getJoueur1();
 							bJoueur = false;
 						}
 						else
 						{
-							joueur = new Joueur("Joueur 2");
+							joueur = mm.getJoueur2();
 							bJoueur = true;
 						}
 						setChanged();

@@ -17,6 +17,7 @@ public class MorpionModel extends Observable
 	{
 		initJeuStandard();
 		initGrille();
+		start();
 	}
 
 	public void initJeuStandard()
@@ -49,23 +50,43 @@ public class MorpionModel extends Observable
 	}
 
 	// Action de jeu d'un joueur
-	public void jouerCoup(int ligne, int colonne, Joueur joueur)
+	public synchronized void jouerCoup(Coup coup)
 	{
-		// if (joueur.estAutoriseAJouer())
-		// {
-		if (coordValide(ligne, colonne))
+		System.out.println("Un joueur joue un coup");
+		System.out.println(coup.getLigne());
+		System.out.println(coup.getColonne());
+		if (coup.getJoueur().equals(joueurEnCours))
 		{
-			if (grille[ligne - 1][colonne - 1].getJoueur() == null)
+			System.out.println("Joueur autorisé");
+			int ligne = coup.getLigne();
+			int colonne = coup.getColonne();
+			if (coordValide(ligne, colonne))
 			{
-				grille[ligne - 1][colonne - 1].setJoueur(joueur);
-				decrementeCoupPossible();
-				joueur.setAutoriseAJouer(false);
+				if (grille[ligne - 1][colonne - 1].getJoueur() == null)
+				{
+					grille[ligne - 1][colonne - 1].setJoueur(coup.getJoueur());
+					decrementeCoupPossible();
 
-				setChanged();
-				notifyObservers();
+					if (joueurEnCours.equals(joueur1))
+					{
+						joueurEnCours = joueur2;
+					}
+					else if (joueurEnCours.equals(joueur2))
+					{
+						joueurEnCours = joueur1;
+					}
+
+					if (estDernierCoup())
+					{
+						initGrille();
+						start();
+					}
+
+					setChanged();
+					notifyObservers();
+				}
 			}
 		}
-		// }
 
 	}
 
