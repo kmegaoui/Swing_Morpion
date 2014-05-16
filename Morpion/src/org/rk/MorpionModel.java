@@ -9,12 +9,14 @@ public class MorpionModel extends Observable
 	private int nbColonne;
 	private Joueur joueur1;
 	private Joueur joueur2;
+	private Joueur joueurEnCours;
 	private Case[][] grille;
 	private int nbCoupPossible;
 
 	public MorpionModel()
 	{
 		initJeuStandard();
+		initGrille();
 	}
 
 	public void initJeuStandard()
@@ -25,8 +27,11 @@ public class MorpionModel extends Observable
 
 		joueur1 = new Joueur("Joueur 1");
 		joueur2 = new Joueur("Joueur 2");
+	}
 
-		initGrille();
+	public void start()
+	{
+		joueurEnCours = joueur1;
 	}
 
 	// Preparation grille de jeu
@@ -44,7 +49,7 @@ public class MorpionModel extends Observable
 	}
 
 	// Action de jeu d'un joueur
-	public boolean jouerCoup(int ligne, int colonne, Joueur joueur)
+	public void jouerCoup(int ligne, int colonne, Joueur joueur)
 	{
 		if (joueur.estAutoriseAJouer())
 		{
@@ -55,12 +60,12 @@ public class MorpionModel extends Observable
 					grille[ligne - 1][colonne - 1] = new Case(joueur);
 					decrementeCoupPossible();
 					joueur.setAutoriseAJouer(false);
-					return true;
+
+					setChanged();
+					notifyObservers();
 				}
 			}
 		}
-
-		return false;
 	}
 
 	public boolean coordValide(int ligne, int colonne)
@@ -257,6 +262,16 @@ public class MorpionModel extends Observable
 	public void setJoueur2(Joueur joueur2)
 	{
 		this.joueur2 = joueur2;
+	}
+
+	public Joueur getJoueurEnCours()
+	{
+		return joueurEnCours;
+	}
+
+	public void setJoueurEnCours(Joueur joueurEnCours)
+	{
+		this.joueurEnCours = joueurEnCours;
 	}
 
 }
