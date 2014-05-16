@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Observable;
@@ -102,6 +104,28 @@ public class MorpionView extends Observable implements Observer
 				frame.setVisible(true);
 
 				// Listener des boutons
+				jbCreer.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent arg0)
+					{
+						setChanged();
+						notifyObservers(new MessageAppli(ActionAppli.CREER,
+								null));
+					}
+				});
+				jbRejoindre.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent arg0)
+					{
+						setChanged();
+						notifyObservers(new MessageAppli(ActionAppli.REJOINDRE,
+								null));
+					}
+				});
 
 				// Listener
 				plateau.addMouseListener(new MouseListener()

@@ -1,6 +1,9 @@
 
 package org.rk;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Observable;
 
 public class MorpionModel extends Observable
@@ -12,6 +15,8 @@ public class MorpionModel extends Observable
 	private Joueur joueurEnCours;
 	private Case[][] grille;
 	private int nbCoupPossible;
+	private ServerSocket serveurHote;
+	private Socket socket;
 
 	public MorpionModel()
 	{
@@ -315,6 +320,33 @@ public class MorpionModel extends Observable
 	public void setJoueurEnCours(Joueur joueurEnCours)
 	{
 		this.joueurEnCours = joueurEnCours;
+	}
+
+	public void creerServer()
+	{
+		try
+		{
+			serveurHote = new ServerSocket(3129);
+			socket = serveurHote.accept();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void rejoindreServer()
+	{
+		try
+		{
+			socket = new Socket("10.0.158.160", 3129);
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
