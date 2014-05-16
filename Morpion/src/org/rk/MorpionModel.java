@@ -51,22 +51,23 @@ public class MorpionModel extends Observable
 	// Action de jeu d'un joueur
 	public void jouerCoup(int ligne, int colonne, Joueur joueur)
 	{
-		if (joueur.estAutoriseAJouer())
+		// if (joueur.estAutoriseAJouer())
+		// {
+		if (coordValide(ligne, colonne))
 		{
-			if (coordValide(ligne, colonne))
+			if (grille[ligne - 1][colonne - 1].getJoueur() != null)
 			{
-				if (grille[ligne - 1][colonne - 1].getJoueur() != null)
-				{
-					grille[ligne - 1][colonne - 1] = new Case(joueur);
-					decrementeCoupPossible();
-					joueur.setAutoriseAJouer(false);
+				grille[ligne - 1][colonne - 1] = new Case(joueur);
+				decrementeCoupPossible();
+				joueur.setAutoriseAJouer(false);
 
-					setChanged();
-					notifyObservers();
-				}
+				setChanged();
+				notifyObservers();
 			}
 		}
 	}
+
+	// }
 
 	public boolean coordValide(int ligne, int colonne)
 	{
