@@ -79,6 +79,7 @@ public class MorpionModel extends Observable
 
 					if (estDernierCoup())
 					{
+						initJeuStandard();
 						System.out.println("dernier coup joué");
 						initGrille();
 						start();
@@ -87,7 +88,7 @@ public class MorpionModel extends Observable
 					}
 
 					setChanged();
-					notifyObservers(1);
+					notifyObservers();
 				}
 			}
 		}
