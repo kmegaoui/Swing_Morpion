@@ -78,14 +78,13 @@ public class MorpionModel extends Observable
 
 					if (estDernierCoup())
 					{
+						initJeuStandard();
 						initGrille();
 						start();
-						setChanged();
-						notifyObservers(2);
 					}
 
 					setChanged();
-					notifyObservers(1);
+					notifyObservers();
 				}
 			}
 		}
