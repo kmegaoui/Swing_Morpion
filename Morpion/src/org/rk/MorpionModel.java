@@ -79,8 +79,8 @@ public class MorpionModel extends Observable
 
 					if (estDernierCoup())
 					{
-						initJeuStandard();
 						System.out.println("dernier coup joué");
+						initJeuStandard();
 						initGrille();
 						start();
 					}

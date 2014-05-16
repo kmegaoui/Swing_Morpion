@@ -139,16 +139,17 @@ public class MorpionView extends Observable implements Observer
 					public void mouseClicked(MouseEvent arg0)
 					{
 						Joueur joueur;
-						if (bJoueur)
-						{
-							joueur = mmodel.getJoueur1();
-							bJoueur = false;
-						}
-						else
-						{
-							joueur = mmodel.getJoueur2();
-							bJoueur = true;
-						}
+						// if (bJoueur)
+						// {
+						// joueur = mmodel.getJoueur1();
+						// bJoueur = false;
+						// }
+						// else
+						// {
+						// joueur = mmodel.getJoueur2();
+						// bJoueur = true;
+						// }
+						joueur = mmodel.getJoueurEnCours();
 						setChanged();
 						int colonne = (arg0.getX() / plateau.getTailleCaseX()) + 1;
 						int ligne = (arg0.getY() / plateau.getTailleCaseY()) + 1;
