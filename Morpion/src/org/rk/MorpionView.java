@@ -164,7 +164,14 @@ public class MorpionView extends Observable implements Observer
 	@Override
 	public void update(Observable arg0, Object arg1)
 	{
-		dessinerGrille();
+		if (arg1.equals(1))
+		{
+			dessinerGrille();
+		}
+		else
+		{
+			plateau = new Plateau(300, 300, 3, 3);
+		}
 	}
 
 	public void dessinerGrille()
