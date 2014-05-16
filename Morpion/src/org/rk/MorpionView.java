@@ -101,6 +101,9 @@ public class MorpionView extends Observable implements Observer
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 
+				// Listener des boutons
+
+				// Listener
 				plateau.addMouseListener(new MouseListener()
 				{
 
@@ -138,17 +141,17 @@ public class MorpionView extends Observable implements Observer
 						Joueur joueur;
 						if (bJoueur)
 						{
-							joueur = new Joueur("Joueur 1");
+							joueur = mm.getJoueur1();
 							bJoueur = false;
 						}
 						else
 						{
-							joueur = new Joueur("Joueur 2");
+							joueur = mm.getJoueur2();
 							bJoueur = true;
 						}
 						setChanged();
-						int ligne = (arg0.getX() / plateau.getTailleX()) + 1;
-						int colonne = (arg0.getY() / plateau.getTailleY()) + 1;
+						int colonne = (arg0.getX() / plateau.getTailleCaseX()) + 1;
+						int ligne = (arg0.getY() / plateau.getTailleCaseY()) + 1;
 						notifyObservers(new MessageAppli(ActionAppli.JOUER,
 								new Coup(ligne, colonne, joueur)));
 						// dessinerGrille();
