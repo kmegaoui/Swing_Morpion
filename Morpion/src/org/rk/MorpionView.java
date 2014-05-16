@@ -25,7 +25,7 @@ import javax.swing.SwingUtilities;
  */
 public class MorpionView extends Observable implements Observer
 {
-	MorpionModel mm;
+	static MorpionModel mmodel;
 	JFrame frame;
 	JPanel jpNord, jpEst;
 	GridBagLayout gblEnTete;
@@ -34,9 +34,9 @@ public class MorpionView extends Observable implements Observer
 	Plateau plateau;
 	Boolean bJoueur = true;
 
-	public MorpionView(final MorpionModel mm)
+	public MorpionView(MorpionModel mm)
 	{
-		this.mm = mm;
+		mmodel = mm;
 		SwingUtilities.invokeLater(new Runnable()
 		{
 
@@ -80,7 +80,7 @@ public class MorpionView extends Observable implements Observer
 				jpNord.add(jbRejoindre, gbc);
 
 				// Panel Plateau
-				plateau = new Plateau(300, 300, 3, 3);
+				plateau = new Plateau(300, 300, 3, 3, mmodel);
 				plateau.setPreferredSize(new Dimension(300, 300));
 
 				// Panel Historique
@@ -141,12 +141,12 @@ public class MorpionView extends Observable implements Observer
 						Joueur joueur;
 						if (bJoueur)
 						{
-							joueur = mm.getJoueur1();
+							joueur = mmodel.getJoueur1();
 							bJoueur = false;
 						}
 						else
 						{
-							joueur = mm.getJoueur2();
+							joueur = mmodel.getJoueur2();
 							bJoueur = true;
 						}
 						setChanged();
@@ -164,30 +164,7 @@ public class MorpionView extends Observable implements Observer
 	@Override
 	public void update(Observable arg0, Object arg1)
 	{
-		dessinerGrille();
-	}
-
-	public void dessinerGrille()
-	{
 		plateau.repaint();
-		Case[][] grille = mm.getGrille();
-		for (int i = 0; i < mm.getNbLigne(); i++)
-		{
-			for (int j = 0; j < mm.getNbColonne(); j++)
-			{
-				if (grille[i][j].getJoueur() != null)
-				{
-					if ((grille[i][j].getJoueur().equals(mm.getJoueur1())))
-					{
-						plateau.croix(i, j);
-					}
-					else
-					{
-						plateau.cercle(i, j);
-					}
-				}
-			}
-		}
 	}
 
 }

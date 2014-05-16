@@ -16,7 +16,7 @@ import javax.swing.JPanel;
  */
 public class Plateau extends JPanel
 {
-
+	private MorpionModel mm;
 	private Integer nbCaseX, nbCaseY, tailleX, tailleY, CoordCaseX, CoordCaseY;
 	private Integer tailleCaseX, tailleCaseY;
 
@@ -59,7 +59,8 @@ public class Plateau extends JPanel
 	 */
 	private static final long serialVersionUID = -1771331963597200288L;
 
-	public Plateau(int tailleX, int tailleY, int nbCaseX, int nbCaseY)
+	public Plateau(int tailleX, int tailleY, int nbCaseX, int nbCaseY,
+			MorpionModel mm)
 	{
 		this.tailleX = tailleX;
 		this.tailleY = tailleY;
@@ -67,6 +68,7 @@ public class Plateau extends JPanel
 		this.nbCaseY = nbCaseY;
 		this.tailleCaseX = Math.round((float) tailleX / nbCaseX);
 		this.tailleCaseY = Math.round((float) tailleY / nbCaseY);
+		this.mm = mm;
 
 	}
 
@@ -88,37 +90,60 @@ public class Plateau extends JPanel
 					* i);
 			i++;
 		}
-		// ((Graphics2D) g).drawLine(100, 0, 100, 300);
-		// ((Graphics2D) g).drawLine(200, 0, 200, 300);
-		// ((Graphics2D) g).drawLine(0, 100, 300, 100);
-		// ((Graphics2D) g).drawLine(0, 200, 300, 200);
-
-		// ((Graphics2D) g).setStroke(new BasicStroke(20));
 		((Graphics2D) g).setColor(Color.BLUE);
 		((Graphics2D) g).drawRect(0, 0, this.getWidth() - 1,
 				this.getHeight() - 1);
+		dessinerGrille((Graphics2D) g);
+
 	}
 
-	@Override
-	public void paint(Graphics arg0)
+	public void cercle(int numLigne, int numColonne, Graphics2D g)
 	{
-		super.paint(arg0);
-	}
-
-	public void cercle(int numLigne, int numColonne)
-	{
-		// Récupération du graphique
-		Graphics g = getGraphics();
 
 		// Calcul des coordonnées dans la grille
-		// CoordCaseX = x / tailleCaseX;
-		// CoordCaseY = y / tailleCaseY;
 		CoordCaseX = numColonne;
 		CoordCaseY = numLigne;
 		int baseX = 10 + (CoordCaseX * tailleCaseX);
 		int baseY = 10 + (CoordCaseY * tailleCaseY);
-		((Graphics2D) g).drawOval(baseX, baseY, tailleCaseX - 20,
-				tailleCaseY - 20);
+		g.drawOval(baseX, baseY, tailleCaseX - 20, tailleCaseY - 20);
+	}
+
+	public void croix(int numLigne, int numColonne, Graphics2D g)
+	{
+
+		// Calcul des coordonnées dans la grille
+		CoordCaseX = numColonne;
+		CoordCaseY = numLigne;
+		int baseX = 10 + (CoordCaseX * tailleCaseX);
+		int baseY = 10 + (CoordCaseY * tailleCaseY);
+		int finX = (tailleCaseX - 10) + (CoordCaseX * tailleCaseX);
+		int finY = (tailleCaseY - 10) + (CoordCaseY * tailleCaseY);
+		g.drawLine(baseX, baseY, finX, finY);
+		g.drawLine(baseX, finY, finX, baseY);
+
+	}
+
+	public void dessinerGrille(Graphics2D g)
+	{
+
+		Case[][] grille = mm.getGrille();
+		for (int i = 0; i < mm.getNbLigne(); i++)
+		{
+			for (int j = 0; j < mm.getNbColonne(); j++)
+			{
+				if (grille[i][j].getJoueur() != null)
+				{
+					if ((grille[i][j].getJoueur().equals(mm.getJoueur1())))
+					{
+						croix(i, j, g);
+					}
+					else
+					{
+						cercle(i, j, g);
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -153,24 +178,6 @@ public class Plateau extends JPanel
 	public void setTailleY(Integer tailleY)
 	{
 		this.tailleY = tailleY;
-	}
-
-	public void croix(int numLigne, int numColonne)
-	{
-		// Récupération du graphique
-		Graphics g = getGraphics();
-
-		// Calcul des coordonnées dans la grille
-		// CoordCaseX = x / tailleCaseX;
-		// CoordCaseY = y / tailleCaseY;
-		CoordCaseX = numColonne;
-		CoordCaseY = numLigne;
-		int baseX = 10 + (CoordCaseX * tailleCaseX);
-		int baseY = 10 + (CoordCaseY * tailleCaseY);
-		int finX = (tailleCaseX - 10) + (CoordCaseX * tailleCaseX);
-		int finY = (tailleCaseY - 10) + (CoordCaseY * tailleCaseY);
-		((Graphics2D) g).drawLine(baseX, baseY, finX, finY);
-		((Graphics2D) g).drawLine(baseX, finY, finX, baseY);
 	}
 
 }
