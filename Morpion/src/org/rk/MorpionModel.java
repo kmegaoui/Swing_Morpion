@@ -1,7 +1,10 @@
 
 package org.rk;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Observable;
@@ -17,6 +20,7 @@ public class MorpionModel extends Observable
 	private int nbCoupPossible;
 	private ServerSocket serveurHote;
 	private Socket socket;
+	private String s;
 
 	public MorpionModel()
 	{
@@ -58,6 +62,20 @@ public class MorpionModel extends Observable
 	// Action de jeu d'un joueur
 	public synchronized void jouerCoup(Coup coup)
 	{
+
+		PrintWriter out;
+		try
+		{
+			out = new PrintWriter(socket.getOutputStream(), true);
+			out.println("J'ai joué");
+			out.flush();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		if (coup.getJoueur().equals(joueurEnCours))
 		{
 			int ligne = coup.getLigne();
@@ -250,6 +268,85 @@ public class MorpionModel extends Observable
 		return false;
 	}
 
+	public void creerServer()
+	{
+		try
+		{
+			serveurHote = new ServerSocket(3129);
+			socket = serveurHote.accept();
+
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Thread thread = new Thread(new Runnable()
+		{
+
+			@Override
+			public void run()
+			{
+				BufferedReader in;
+				try
+				{
+					in = new BufferedReader(new InputStreamReader(
+							socket.getInputStream()));
+					if (in.ready())
+					{
+						s = in.readLine();
+						System.out.println(s);
+					}
+				}
+				catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		thread.start();
+	}
+
+	public void rejoindreServer()
+	{
+		try
+		{
+			socket = new Socket("10.0.158.160", 3129);
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Thread thread = new Thread(new Runnable()
+		{
+
+			@Override
+			public void run()
+			{
+				BufferedReader in;
+				try
+				{
+					in = new BufferedReader(new InputStreamReader(
+							socket.getInputStream()));
+					if (in.ready())
+					{
+						s = in.readLine();
+						System.out.println(s);
+					}
+				}
+				catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		thread.start();
+
+	}
+
 	// getters et setters
 
 	public int getNbLigne()
@@ -320,33 +417,6 @@ public class MorpionModel extends Observable
 	public void setJoueurEnCours(Joueur joueurEnCours)
 	{
 		this.joueurEnCours = joueurEnCours;
-	}
-
-	public void creerServer()
-	{
-		try
-		{
-			serveurHote = new ServerSocket(3129);
-			socket = serveurHote.accept();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void rejoindreServer()
-	{
-		try
-		{
-			socket = new Socket("10.0.158.160", 3129);
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }
