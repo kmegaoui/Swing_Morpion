@@ -32,7 +32,7 @@ public class MorpionView extends Observable implements Observer
 	JTextField jtNom;
 	JButton jbCreer, jbRejoindre;
 	Plateau plateau;
-	Boolean joueur = true;
+	Boolean bJoueur = true;
 
 	public MorpionView(final MorpionModel mm)
 	{
@@ -135,19 +135,23 @@ public class MorpionView extends Observable implements Observer
 					@Override
 					public void mouseClicked(MouseEvent arg0)
 					{
-						// if (joueur)
-						// {
-						// plateau.cercle(arg0.getX(), arg0.getY());
-						// joueur = false;
-						// }
-						// else
-						// {
-						// plateau.croix(arg0.getX(), arg0.getY());
-						// joueur = true;
-						// }
-						// setChanged();
-						// notifyObservers();
-						dessinerGrille();
+						Joueur joueur;
+						if (bJoueur)
+						{
+							joueur = new Joueur("Joueur 1");
+							bJoueur = false;
+						}
+						else
+						{
+							joueur = new Joueur("Joueur 2");
+							bJoueur = true;
+						}
+						setChanged();
+						int ligne = (arg0.getX() / plateau.getTailleX()) + 1;
+						int colonne = (arg0.getY() / plateau.getTailleY()) + 1;
+						notifyObservers(new MessageAppli(ActionAppli.JOUER,
+								new Coup(ligne, colonne, joueur)));
+						// dessinerGrille();
 					}
 				});
 			}

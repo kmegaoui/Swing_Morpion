@@ -71,24 +71,7 @@ public class Plateau extends JPanel
 		super.paint(arg0);
 	}
 
-	public void cercle(int x, int y)
-	{
-		// Récupération du graphique
-		Graphics g = getGraphics();
-
-		// Calcul des coordonnées dans la grille
-		CoordCaseX = x / tailleCaseX;
-		CoordCaseY = y / tailleCaseY;
-		int baseX = 10 + (CoordCaseX * tailleCaseX);
-		int baseY = 10 + (CoordCaseY * tailleCaseY);
-		System.out.println(tailleCaseX + " " + tailleCaseY);
-		System.out.println(CoordCaseX + " " + CoordCaseY);
-		System.out.println(baseX + " " + baseY);
-		((Graphics2D) g).drawOval(baseX, baseY, tailleCaseX - 20,
-				tailleCaseY - 20);
-	}
-
-	public void croix(int x, int y)
+	public void cercle(int numLigne, int numColonne)
 	{
 		// Récupération du graphique
 		Graphics g = getGraphics();
@@ -96,8 +79,58 @@ public class Plateau extends JPanel
 		// Calcul des coordonnées dans la grille
 		// CoordCaseX = x / tailleCaseX;
 		// CoordCaseY = y / tailleCaseY;
-		CoordCaseX = x;
-		CoordCaseY = y;
+		CoordCaseX = numColonne;
+		CoordCaseY = numLigne;
+		int baseX = 10 + (CoordCaseX * tailleCaseX);
+		int baseY = 10 + (CoordCaseY * tailleCaseY);
+		((Graphics2D) g).drawOval(baseX, baseY, tailleCaseX - 20,
+				tailleCaseY - 20);
+	}
+
+	/**
+	 * @return the tailleX
+	 */
+	public Integer getTailleX()
+	{
+		return tailleX;
+	}
+
+	/**
+	 * @param tailleX
+	 *            the tailleX to set
+	 */
+	public void setTailleX(Integer tailleX)
+	{
+		this.tailleX = tailleX;
+	}
+
+	/**
+	 * @return the tailleY
+	 */
+	public Integer getTailleY()
+	{
+		return tailleY;
+	}
+
+	/**
+	 * @param tailleY
+	 *            the tailleY to set
+	 */
+	public void setTailleY(Integer tailleY)
+	{
+		this.tailleY = tailleY;
+	}
+
+	public void croix(int numLigne, int numColonne)
+	{
+		// Récupération du graphique
+		Graphics g = getGraphics();
+
+		// Calcul des coordonnées dans la grille
+		// CoordCaseX = x / tailleCaseX;
+		// CoordCaseY = y / tailleCaseY;
+		CoordCaseX = numColonne;
+		CoordCaseY = numLigne;
 		int baseX = 10 + (CoordCaseX * tailleCaseX);
 		int baseY = 10 + (CoordCaseY * tailleCaseY);
 		int finX = (tailleCaseX - 10) + (CoordCaseX * tailleCaseX);
