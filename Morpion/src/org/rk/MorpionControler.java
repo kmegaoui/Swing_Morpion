@@ -25,8 +25,9 @@ public class MorpionControler implements Observer
 		switch (ma.getActionAppli())
 		{
 		case JOUER:
+			System.out.println("Action recue");
 			Coup coup = (Coup) ma.getObject();
-			mm.jouerCoup(coup.getLigne(), coup.getColonne(), coup.getJoueur());
+			mm.jouerCoup(coup);
 			break;
 
 		default:
