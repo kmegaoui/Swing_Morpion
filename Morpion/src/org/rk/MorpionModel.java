@@ -15,6 +15,9 @@ public class MorpionModel extends Observable
 
 	public MorpionModel()
 	{
+		joueur1 = new Joueur("Joueur 1");
+		joueur2 = new Joueur("Joueur 2");
+
 		initJeuStandard();
 		initGrille();
 		start();
@@ -26,8 +29,6 @@ public class MorpionModel extends Observable
 		nbColonne = 3;
 		nbCoupPossible = nbLigne * nbColonne;
 
-		joueur1 = new Joueur("Joueur 1");
-		joueur2 = new Joueur("Joueur 2");
 	}
 
 	public void start()
@@ -52,12 +53,8 @@ public class MorpionModel extends Observable
 	// Action de jeu d'un joueur
 	public synchronized void jouerCoup(Coup coup)
 	{
-		System.out.println("Un joueur joue un coup");
-		System.out.println(coup.getLigne());
-		System.out.println(coup.getColonne());
 		if (coup.getJoueur().equals(joueurEnCours))
 		{
-			System.out.println("Joueur autorisé");
 			int ligne = coup.getLigne();
 			int colonne = coup.getColonne();
 			if (coordValide(ligne, colonne))
@@ -66,7 +63,6 @@ public class MorpionModel extends Observable
 				{
 					grille[ligne - 1][colonne - 1].setJoueur(coup.getJoueur());
 					decrementeCoupPossible();
-					System.out.println("Coups restants" + nbCoupPossible);
 
 					if (joueurEnCours.equals(joueur1))
 					{
@@ -77,12 +73,34 @@ public class MorpionModel extends Observable
 						joueurEnCours = joueur1;
 					}
 
-					if (estDernierCoup())
+					if (estCoupGagnant(ligne, colonne, coup.getJoueur()))
 					{
-						System.out.println("dernier coup joué");
+						System.out.println("Gagnant " + coup.getJoueur());
 						initJeuStandard();
 						initGrille();
 						start();
+
+						if (coup.getJoueur().equals(joueur1))
+						{
+							joueur1.gagne();
+							joueur2.perd();
+						}
+						else
+						{
+							joueur2.gagne();
+							joueur1.perd();
+						}
+
+					}
+
+					else if (estDernierCoup())
+					{
+						initJeuStandard();
+						initGrille();
+						start();
+
+						joueur1.egalise();
+						joueur2.egalise();
 					}
 
 					setChanged();
@@ -130,12 +148,12 @@ public class MorpionModel extends Observable
 		int cpt;
 
 		// Verification des lignes potentiellement gagnantes
-		for (int i = ligneMin; i < ligneMax; i++)
+		for (int i = ligneMin; i < ligneMax + 1; i++)
 		{
 			cpt = 0;
-			for (int j = colonneMin; j < colonneMax; j++)
+			for (int j = colonneMin; j < colonneMax + 1; j++)
 			{
-				if (joueur.equals(grille[ligne - 1][colonne - 1].getJoueur()))
+				if (joueur.equals(grille[i - 1][j - 1].getJoueur()))
 				{
 					cpt++;
 				}
@@ -151,12 +169,12 @@ public class MorpionModel extends Observable
 		}
 
 		// Verification des colonnes potentiellement gagnantes
-		for (int i = colonneMin; i < colonneMax; i++)
+		for (int j = colonneMin; j < colonneMax + 1; j++)
 		{
 			cpt = 0;
-			for (int j = ligneMin; j < ligneMax; j++)
+			for (int i = ligneMin; i < ligneMax + 1; i++)
 			{
-				if (joueur.equals(grille[ligne - 1][colonne - 1].getJoueur()))
+				if (joueur.equals(grille[i - 1][j - 1].getJoueur()))
 				{
 					cpt++;
 				}
