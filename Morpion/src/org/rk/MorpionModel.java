@@ -83,8 +83,6 @@ public class MorpionModel extends Observable
 						System.out.println("dernier coup joué");
 						initGrille();
 						start();
-						setChanged();
-						notifyObservers(2);
 					}
 
 					setChanged();
