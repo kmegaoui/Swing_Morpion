@@ -270,17 +270,6 @@ public class MorpionModel extends Observable
 
 	public void creerServer()
 	{
-		try
-		{
-			serveurHote = new ServerSocket(3129);
-			socket = serveurHote.accept();
-
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		Thread thread = new Thread(new Runnable()
 		{
 
@@ -290,6 +279,9 @@ public class MorpionModel extends Observable
 				BufferedReader in;
 				try
 				{
+					serveurHote = new ServerSocket(3129);
+					socket = serveurHote.accept();
+
 					in = new BufferedReader(new InputStreamReader(
 							socket.getInputStream()));
 					if (in.ready())
@@ -305,20 +297,12 @@ public class MorpionModel extends Observable
 				}
 			}
 		});
+
 		thread.start();
 	}
 
 	public void rejoindreServer()
 	{
-		try
-		{
-			socket = new Socket("10.0.158.160", 3129);
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		Thread thread = new Thread(new Runnable()
 		{
 
@@ -328,6 +312,7 @@ public class MorpionModel extends Observable
 				BufferedReader in;
 				try
 				{
+					socket = new Socket("10.0.158.160", 3129);
 					in = new BufferedReader(new InputStreamReader(
 							socket.getInputStream()));
 					if (in.ready())
