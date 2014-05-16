@@ -90,7 +90,20 @@ public class Plateau extends JPanel
 
 	public void croix(int x, int y)
 	{
+		// Récupération du graphique
+		Graphics g = getGraphics();
 
+		// Calcul des coordonnées dans la grille
+		// CoordCaseX = x / tailleCaseX;
+		// CoordCaseY = y / tailleCaseY;
+		CoordCaseX = x;
+		CoordCaseY = y;
+		int baseX = 10 + (CoordCaseX * tailleCaseX);
+		int baseY = 10 + (CoordCaseY * tailleCaseY);
+		int finX = (tailleCaseX - 10) + (CoordCaseX * tailleCaseX);
+		int finY = (tailleCaseY - 10) + (CoordCaseY * tailleCaseY);
+		((Graphics2D) g).drawLine(baseX, baseY, finX, finY);
+		((Graphics2D) g).drawLine(baseX, finY, finX, baseY);
 	}
 
 }
