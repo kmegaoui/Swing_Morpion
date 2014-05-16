@@ -17,20 +17,47 @@ import javax.swing.JPanel;
 public class Plateau extends JPanel
 {
 
+	private Integer nbCaseX, nbCaseY, tailleX, tailleY, CoordCaseX, CoordCaseY;
+	private Integer tailleCaseX, tailleCaseY;
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1771331963597200288L;
 
+	public Plateau(int tailleX, int tailleY, int nbCaseX, int nbCaseY)
+	{
+		this.tailleX = tailleX;
+		this.tailleY = tailleY;
+		this.nbCaseX = nbCaseX;
+		this.nbCaseY = nbCaseY;
+		this.tailleCaseX = Math.round((float) tailleX / nbCaseX);
+		this.tailleCaseY = Math.round((float) tailleY / nbCaseY);
+
+	}
+
 	@Override
 	public void paintComponent(Graphics g)
 	{
-		// TODO Auto-generated method stub
 		super.paintComponents(g);
-		((Graphics2D) g).drawLine(100, 0, 100, 300);
-		((Graphics2D) g).drawLine(200, 0, 200, 300);
-		((Graphics2D) g).drawLine(0, 100, 300, 100);
-		((Graphics2D) g).drawLine(0, 200, 300, 200);
+		int i = 1;
+		while (i < nbCaseX)
+		{
+			((Graphics2D) g).drawLine(tailleCaseX * i, 0, tailleCaseX * i,
+					tailleY);
+			i++;
+		}
+		i = 1;
+		while (i < nbCaseY)
+		{
+			((Graphics2D) g).drawLine(0, tailleCaseY * i, tailleX, tailleCaseY
+					* i);
+			i++;
+		}
+		// ((Graphics2D) g).drawLine(100, 0, 100, 300);
+		// ((Graphics2D) g).drawLine(200, 0, 200, 300);
+		// ((Graphics2D) g).drawLine(0, 100, 300, 100);
+		// ((Graphics2D) g).drawLine(0, 200, 300, 200);
 
 		// ((Graphics2D) g).setStroke(new BasicStroke(20));
 		((Graphics2D) g).setColor(Color.BLUE);
@@ -44,10 +71,26 @@ public class Plateau extends JPanel
 		super.paint(arg0);
 	}
 
-	public void Cercle(int x, int y)
+	public void cercle(int x, int y)
 	{
+		// Récupération du graphique
 		Graphics g = getGraphics();
-		((Graphics2D) g).drawOval(10, 10, 80, 80);
+
+		// Calcul des coordonnées dans la grille
+		CoordCaseX = x / tailleCaseX;
+		CoordCaseY = y / tailleCaseY;
+		int baseX = 10 + (CoordCaseX * tailleCaseX);
+		int baseY = 10 + (CoordCaseY * tailleCaseY);
+		System.out.println(tailleCaseX + " " + tailleCaseY);
+		System.out.println(CoordCaseX + " " + CoordCaseY);
+		System.out.println(baseX + " " + baseY);
+		((Graphics2D) g).drawOval(baseX, baseY, tailleCaseX - 20,
+				tailleCaseY - 20);
+	}
+
+	public void croix(int x, int y)
+	{
+
 	}
 
 }

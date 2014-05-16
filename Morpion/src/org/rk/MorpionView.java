@@ -44,6 +44,7 @@ public class MorpionView extends Observable implements Observer
 			{
 				// frame principale avec BorderLayout
 				frame = new JFrame("Morpion RK");
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.getContentPane().setLayout(new BorderLayout());
 				// Panel en-Tête avec GridBagLayout
 				jpNord = new JPanel();
@@ -78,7 +79,7 @@ public class MorpionView extends Observable implements Observer
 				jpNord.add(jbRejoindre, gbc);
 
 				// Panel Plateau
-				plateau = new Plateau();
+				plateau = new Plateau(300, 300, 3, 3);
 				plateau.setPreferredSize(new Dimension(300, 300));
 
 				// Panel Historique
@@ -133,9 +134,7 @@ public class MorpionView extends Observable implements Observer
 					@Override
 					public void mouseClicked(MouseEvent arg0)
 					{
-						System.out.println(arg0.getX() / 100);
-						if (arg0.getX() / 100 == 0 && arg0.getY() / 100 == 0)
-							plateau.Cercle(50, 50);
+						plateau.cercle(arg0.getX(), arg0.getY());
 					}
 				});
 

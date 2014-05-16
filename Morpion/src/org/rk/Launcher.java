@@ -17,7 +17,6 @@ public class Launcher
 		mc = new MorpionControler(mm, mv);
 		mm.addObserver(mv);
 		mv.addObserver(mc);
-
 	}
 
 }
