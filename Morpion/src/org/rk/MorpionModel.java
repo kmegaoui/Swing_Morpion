@@ -61,13 +61,13 @@ public class MorpionModel extends Observable
 				decrementeCoupPossible();
 				joueur.setAutoriseAJouer(false);
 
-				// setChanged();
-				// notifyObservers();
+				setChanged();
+				notifyObservers();
 			}
 		}
-	}
+		// }
 
-	// }
+	}
 
 	public boolean coordValide(int ligne, int colonne)
 	{
